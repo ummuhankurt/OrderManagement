@@ -34,6 +34,7 @@
             txtKullaniciAdi = new TextBox();
             txtSifre = new TextBox();
             btnGirisYap = new Button();
+            linkLabel = new LinkLabel();
             SuspendLayout();
             // 
             // label1
@@ -86,11 +87,24 @@
             btnGirisYap.UseVisualStyleBackColor = false;
             btnGirisYap.Click += btnGirisYap_Click;
             // 
+            // linkLabel
+            // 
+            linkLabel.AutoSize = true;
+            linkLabel.LinkColor = Color.Black;
+            linkLabel.Location = new Point(312, 294);
+            linkLabel.Name = "linkLabel";
+            linkLabel.Size = new Size(167, 15);
+            linkLabel.TabIndex = 5;
+            linkLabel.TabStop = true;
+            linkLabel.Text = "Hesabınız yok mu ? Kayıt Olun";
+            linkLabel.LinkClicked += linkLabel_LinkClicked;
+            // 
             // frmLogIn
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(681, 376);
+            Controls.Add(linkLabel);
             Controls.Add(btnGirisYap);
             Controls.Add(txtSifre);
             Controls.Add(txtKullaniciAdi);
@@ -110,5 +124,6 @@
         private TextBox txtKullaniciAdi;
         private TextBox txtSifre;
         private Button btnGirisYap;
+        private LinkLabel linkLabel;
     }
 }

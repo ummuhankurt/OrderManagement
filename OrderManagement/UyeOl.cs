@@ -49,12 +49,18 @@ namespace OrderManagement
                 MessageBox.Show("Telefon numarası boş bırakılamaz !");
                 return;
             }
-            user.FirstName = txtYeniUyeMusteriAd.Text;
-            user.LastName = txtYeniUyeMusteriSoyad.Text;
+            if (txtYeniUyePhoneNumber.TextLength != 11 || !(txtYeniUyePhoneNumber.Text.StartsWith("05")))
+            {
+                MessageBox.Show("Telefon numarası 11 hane olacak şekilde doğru formatta giriniz ! Örn: 05556985657");
+                return;
+            }
+            user.FirstName = txtYeniUyeMusteriAd.Text.ToUpper();
+            user.LastName = txtYeniUyeMusteriSoyad.Text.ToUpper();
             user.UserName = txtYenUyeMusteriKullaniciAdi.Text;
             user.Password = txtYeniUyeMusteriSifre.Text;
             user.PhoneNumber = txtYeniUyePhoneNumber.Text;
             user.Role = "Musteri";
+            user.CompanyName = txtYeniUyeCompanyName.Text ?? "";
             ApplicationDbContext context = new ApplicationDbContext();
 
             var ifUserExist = context.Users.FirstOrDefault(u => u.FirstName == user.FirstName && u.LastName == user.LastName && u.UserName == user.UserName && u.PhoneNumber == user.PhoneNumber);

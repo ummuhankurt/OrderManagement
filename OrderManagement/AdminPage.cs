@@ -16,10 +16,14 @@ namespace OrderManagement
         public frmAdminPage()
         {
             InitializeComponent();
+
             ApplicationDbContext context = new ApplicationDbContext();
             var siparisList = context.Orders.ToList();
+            var customerList = context.Users.Where(u => u.Role == "Musteri").ToList();
+            var customerListNoOrders = context.Users.Where(user => !context.Orders.Any(order => order.CustomerName == user.UserName) && user.UserName != "Bimosa").ToList();
             dgvOrders.AutoGenerateColumns = false;
-            dgvOrders.Columns.Clear(); 
+            dgvCustmers.AutoGenerateColumns = false;
+            dgvCustomersNoOrder.AutoGenerateColumns = false;
 
             dgvOrders.Columns.Add(new DataGridViewTextBoxColumn
             {
@@ -58,7 +62,49 @@ namespace OrderManagement
                 HeaderText = "Sipariş Nereye Teslim Edilecek",
                 Name = "Adress"
             });
+            dgvCustmers.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "FirstName",
+                HeaderText = "Ad",
+                Name = "FirstName"
+            });
+            dgvCustmers.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "LastName",
+                HeaderText = "Soyad",
+                Name = "LastName"
+            });
+            dgvCustmers.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "PhoneNumber",
+                HeaderText = "Telefon",
+                Name = "PhoneNumber"
+            });
+            dgvCustmers.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "CompanyName",
+                HeaderText = "Şirket",
+                Name = "CompanyName"
+            });
+
+            dgvCustomersNoOrder.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "FirstName",
+                HeaderText = "Ad",
+                Name = "FirstName"
+            });
+            dgvCustomersNoOrder.Columns.Add(new DataGridViewTextBoxColumn
+            {
+                DataPropertyName = "LastName",
+                HeaderText = "Soyad",
+                Name = "LastName"
+            });
             dgvOrders.DataSource = siparisList;
+            dgvCustmers.DataSource = customerList;
+            dgvCustomersNoOrder.DataSource = customerListNoOrders;
+            dgvOrders.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvCustmers.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
+            dgvCustomersNoOrder.AutoSizeColumnsMode = DataGridViewAutoSizeColumnsMode.Fill;
         }
     }
 }

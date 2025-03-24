@@ -39,7 +39,8 @@ namespace OrderManagement
             user.UserName = txtKullaniciAdi.Text;
             user.Password = txtSifre.Text;
             var controlUser = context.Users.FirstOrDefault(u => u.UserName == user.UserName && u.Password == user.Password);
-            if (controlUser != null) {
+            if (controlUser != null)
+            {
                 if (controlUser.Role == "Musteri")
                 {
                     frmOrder frmOrder = new frmOrder();
@@ -57,7 +58,13 @@ namespace OrderManagement
                 MessageBox.Show("Kullanıcı bulunamadı...");
                 return;
             }
-            
+
+        }
+
+        private void linkLabel_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmUyeOl frmUyeOl = new frmUyeOl();
+            frmUyeOl.ShowDialog();
         }
     }
 }

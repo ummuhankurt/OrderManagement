@@ -25,13 +25,14 @@ namespace OrderManagement
             cbxOrders.DataSource = products;
             cbxOrders.DisplayMember = "Name";
             cbxOrders.ValueMember = "Id";
-            
+
 
         }
 
         public void SetCustomer(string name)
         {
             customerName = name;
+            lblMusteri.Text = customerName;
         }
         private void btnSiparisVer_Click(object sender, EventArgs e)
         {
@@ -48,7 +49,7 @@ namespace OrderManagement
                     MessageBox.Show("Teslim tarihi boş bırakılamaz !");
                     return;
                 }
-                if(String.IsNullOrEmpty(txtSiparisTeslimAdresi.Text))
+                if (String.IsNullOrEmpty(txtSiparisTeslimAdresi.Text))
                 {
                     MessageBox.Show("Teslimat adresi boş bırakılamaz !");
                     return;
@@ -64,7 +65,7 @@ namespace OrderManagement
                 order.CreatedDate = DateTime.Now;
                 order.Piece = Convert.ToInt32(txtSiparisAdet.Text);
                 order.CustomerName = customerName;
-;
+                
                 var result = context.Orders.Add(order);
                 context.SaveChanges();
                 if ((result.State == Microsoft.EntityFrameworkCore.EntityState.Unchanged) || result.State == Microsoft.EntityFrameworkCore.EntityState.Added)
@@ -78,8 +79,14 @@ namespace OrderManagement
 
                 MessageBox.Show("Lütfen tüm alanları doldurduğunuzdan emin olun !");
             }
-           
 
+
+        }
+
+        private void lblYardimSayfasiLink_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            frmHelp frmHelp = new frmHelp();
+            frmHelp.Show();
         }
        
     }
