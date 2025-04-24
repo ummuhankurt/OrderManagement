@@ -41,6 +41,7 @@
             label5 = new Label();
             lblYardimSayfasiLink = new LinkLabel();
             lblMusteri = new Label();
+            linkLabelOrder = new LinkLabel();
             SuspendLayout();
             // 
             // label1
@@ -153,16 +154,30 @@
             // 
             lblMusteri.AutoSize = true;
             lblMusteri.Font = new Font("Segoe UI Semibold", 9.75F, FontStyle.Bold | FontStyle.Italic, GraphicsUnit.Point, 162);
-            lblMusteri.Location = new Point(790, 21);
+            lblMusteri.Location = new Point(783, 19);
             lblMusteri.Name = "lblMusteri";
             lblMusteri.Size = new Size(0, 17);
             lblMusteri.TabIndex = 0;
+            // 
+            // linkLabelOrder
+            // 
+            linkLabelOrder.AutoSize = true;
+            linkLabelOrder.Font = new Font("Segoe UI", 12F, FontStyle.Bold, GraphicsUnit.Point, 162);
+            linkLabelOrder.LinkColor = Color.FromArgb(64, 64, 64);
+            linkLabelOrder.Location = new Point(682, 283);
+            linkLabelOrder.Name = "linkLabelOrder";
+            linkLabelOrder.Size = new Size(101, 21);
+            linkLabelOrder.TabIndex = 12;
+            linkLabelOrder.TabStop = true;
+            linkLabelOrder.Text = "Siparişlerim";
+            linkLabelOrder.LinkClicked += linkLabelOrder_LinkClicked;
             // 
             // frmOrder
             // 
             AutoScaleDimensions = new SizeF(7F, 15F);
             AutoScaleMode = AutoScaleMode.Font;
             ClientSize = new Size(971, 637);
+            Controls.Add(linkLabelOrder);
             Controls.Add(lblYardimSayfasiLink);
             Controls.Add(txtSiparisAdet);
             Controls.Add(txtSiparisTeslimAdresi);
@@ -198,5 +213,6 @@
         private Label label5;
         private LinkLabel lblYardimSayfasiLink;
         private Label lblMusteri;
+        private LinkLabel linkLabelOrder;
     }
 }

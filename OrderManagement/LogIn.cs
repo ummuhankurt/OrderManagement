@@ -23,7 +23,6 @@ namespace OrderManagement
 
         private void btnGirisYap_Click(object sender, EventArgs e)
         {
-            // Giriş yapan kişi müşteriyse farklı adminse farklı.
             ApplicationDbContext context = new ApplicationDbContext();
             Models.Entities.User user = new Models.Entities.User();
             if (String.IsNullOrEmpty(txtKullaniciAdi.Text))
@@ -37,20 +36,29 @@ namespace OrderManagement
                 return;
             }
             user.UserName = txtKullaniciAdi.Text;
-            user.Password = txtSifre.Text;
-            var controlUser = context.Users.FirstOrDefault(u => u.UserName == user.UserName && u.Password == user.Password);
+            user.Password = CryptoHelper.EncryptPassword(txtSifre.Text);
+            var controlUser = context.Users.FirstOrDefault(u => u.UserName == user.UserName);
             if (controlUser != null)
             {
-                if (controlUser.Role == "Musteri")
+                var passwordControl = context.Users.FirstOrDefault(u => u.Password == CryptoHelper.EncryptPassword(txtSifre.Text));
+                if (passwordControl != null)
                 {
-                    frmOrder frmOrder = new frmOrder();
-                    frmOrder.SetCustomer(txtKullaniciAdi.Text);
-                    frmOrder.ShowDialog();
+                    if (controlUser.Role == "Musteri")
+                    {
+                        frmOrder frmOrder = new frmOrder();
+                        frmOrder.SetCustomer(txtKullaniciAdi.Text);
+                        frmOrder.ShowDialog();
+                    }
+                    if (controlUser.Role == "Admin")
+                    {
+                        frmAdminPage frmAdminPage = new frmAdminPage();
+                        frmAdminPage.ShowDialog();
+                    }
                 }
-                if (controlUser.Role == "Admin")
+                else
                 {
-                    frmAdminPage frmAdminPage = new frmAdminPage();
-                    frmAdminPage.ShowDialog();
+                    MessageBox.Show("Şifreniz yanlış. Tekrar deneyin.");
+                    return;
                 }
             }
             else

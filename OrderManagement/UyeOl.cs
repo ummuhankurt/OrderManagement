@@ -6,6 +6,7 @@ using System.ComponentModel;
 using System.Data;
 using System.Drawing;
 using System.Linq;
+using System.Security.Cryptography;
 using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
@@ -57,13 +58,13 @@ namespace OrderManagement
             user.FirstName = txtYeniUyeMusteriAd.Text.ToUpper();
             user.LastName = txtYeniUyeMusteriSoyad.Text.ToUpper();
             user.UserName = txtYenUyeMusteriKullaniciAdi.Text;
-            user.Password = txtYeniUyeMusteriSifre.Text;
+            user.Password = CryptoHelper.EncryptPassword(txtYeniUyeMusteriSifre.Text);
             user.PhoneNumber = txtYeniUyePhoneNumber.Text;
             user.Role = "Musteri";
             user.CompanyName = txtYeniUyeCompanyName.Text ?? "";
             ApplicationDbContext context = new ApplicationDbContext();
 
-            var ifUserExist = context.Users.FirstOrDefault(u => u.FirstName == user.FirstName && u.LastName == user.LastName && u.UserName == user.UserName && u.PhoneNumber == user.PhoneNumber);
+            var ifUserExist = context.Users.FirstOrDefault(u => u.FirstName.ToUpper() == user.FirstName && u.LastName == user.LastName.ToUpper() && u.UserName == user.UserName && u.PhoneNumber == user.PhoneNumber);
             if (ifUserExist != null)
             {
                 MessageBox.Show("Bu müşteri zaten kayıtlı. Giriş sayfasına yönlendiriliyorsunuz...");
@@ -89,5 +90,7 @@ namespace OrderManagement
                 }
             }
         }
+
+        
     }
 }

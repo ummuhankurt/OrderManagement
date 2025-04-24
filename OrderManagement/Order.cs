@@ -65,7 +65,7 @@ namespace OrderManagement
                 order.CreatedDate = DateTime.Now;
                 order.Piece = Convert.ToInt32(txtSiparisAdet.Text);
                 order.CustomerName = customerName;
-                
+
                 var result = context.Orders.Add(order);
                 context.SaveChanges();
                 if ((result.State == Microsoft.EntityFrameworkCore.EntityState.Unchanged) || result.State == Microsoft.EntityFrameworkCore.EntityState.Added)
@@ -88,6 +88,11 @@ namespace OrderManagement
             frmHelp frmHelp = new frmHelp();
             frmHelp.Show();
         }
-       
+
+        private void linkLabelOrder_LinkClicked(object sender, LinkLabelLinkClickedEventArgs e)
+        {
+            MyOrder myOrder = new MyOrder(lblMusteri.Text);
+            myOrder.Show();
+        }
     }
 }
